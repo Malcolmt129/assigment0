@@ -5,7 +5,7 @@ const prompt = ps()
 
 const key = prompt("Please enter your API key: ");
 
-firstbullet();
+thirdbullet();      
 
 /**
  * This is function for the first bullet. 
@@ -59,4 +59,29 @@ async function firstbullet(){
 
 function secondbullet() {
     
+}
+
+
+/**
+ * This is the third bullet function where I use the EtherScan API
+ * to find the current price of ETH/USD and ETH/BTC
+ * 
+ * 
+ */
+async function thirdbullet(){
+    await axios({
+        method:'get',
+        url: url,
+        params: {
+            module: 'stats',
+            action: 'ethprice',
+            apikey: key
+        }
+    }).then(function(response) {
+        usd = Number(response.data['result']['ethusd']);
+        btc = Number(response.data['result']['ethbtc']);
+        console.log("Current worth of ETH is $%s USD", usd.toLocaleString());
+        console.log("Current worth of ETH in bitcoin is %s BTC", btc.toLocaleString());
+        return usd;
+    });
 }
