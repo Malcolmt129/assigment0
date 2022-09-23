@@ -4,9 +4,27 @@ const ps = require("prompt-sync");
 const prompt = ps()
 
 const key = prompt("Please enter your API key: ");
-//firstbullet()
-//secondbullet(0x192336f603b8e7bef43518108c39b8fb933c8eee60c0e242655138c8206259ef); 
-secondbullet('0xbfe65cc2a2d3b6109ae5665c5d38c74c1035719506c60275390983a38f460b8b');   
+
+/**
+ * ====================================================================================
+ * Right below is the code block that you will need to get through the bullet points!!!
+ * 
+ * ==================================================================================== 
+ */
+
+
+//firstbullet('0x00000000219ab540356cbb839cbe05303d7705fa');
+
+//secondbullet('0x192336f603b8e7bef43518108c39b8fb933c8eee60c0e242655138c8206259ef'); 
+//secondbullet('0xbfe65cc2a2d3b6109ae5665c5d38c74c1035719506c60275390983a38f460b8b');
+//secondbullet('0xd1719e1357223b5b25e52dcfe7053efa7ddd75f9d18176604243e919257be244');   
+
+//thirdbullet();
+
+
+
+
+
 
 /**
  * This is function for the first bullet. 
@@ -21,14 +39,14 @@ secondbullet('0xbfe65cc2a2d3b6109ae5665c5d38c74c1035719506c60275390983a38f460b8b
  * instead of having to type in the wallet number as well. 
  */ 
 
-async function firstbullet(){
+async function firstbullet(address){
     var ETH = await axios({
                 method: 'get',
                 url: url,
                 params: {
                     module: 'account',
                     action: 'balance',
-                    address:'0x00000000219ab540356cbb839cbe05303d7705fa',
+                    address: address,
                     tag:'latest',
                     apikey:key
                 } //Params is what appends to the base url... not data! It works now.
@@ -59,7 +77,7 @@ async function firstbullet(){
 }
 
 async function secondbullet(hash) {
-    var price, flag = await axios({
+    var price = await axios({
         method:'get',
         url: url,
         params: {
@@ -71,10 +89,8 @@ async function secondbullet(hash) {
     }).then(function(response) {
         ethInWei = response.data.result['value'];
         eth = ethInWei / 10**18;
-        return {
-            price: eth,
-            flag: response.data.result['to'] == '0x87a8c74dfa32e09700369584f5dfad1b5b653e2c'
-        } 
+        console.log(response.data.result);
+        return eth;
     });
 
     var USD = await axios({
@@ -90,12 +106,7 @@ async function secondbullet(hash) {
         return usd;
     });
     conversion = USD * price;
-    if (flag){
-        console.log("Marlon Humphrey paid " + price + " ETH for this transcation. That is worth " + conversion.toLocaleString() + " today!");
-    } else {
-        console.log("Marlon Humphrey recieved " + price + " ETH for this transcation. That is worth " + conversion.toLocaleString() + " today!");
-    }
-    
+    console.log("This transaction was " + price + " ETH. That is worth " + conversion.toLocaleString() + " today!");
 }
 
 

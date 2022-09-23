@@ -8,25 +8,28 @@ const key = prompt('Please enter your API key: ');
 
 
 /**
- * This is all the code needed to execute the first bullet of part III
+ * ===================================================================
+ * Below is all the code needed to execute the first bullet of part III
  * 
- * firstbullet("BTC");
-firstbullet("ETH");
-firstbullet("SOL");
-firstbullet("ADA");
+ *====================================================================
  */
+
+//firstbullet("BTC");
+//firstbullet("ETH");
+//firstbullet("SOL");
+//firstbullet("ADA");
 
 
 
 
 /**
- * This is all the code needed to execute the second bullet of part III
+ * Below is all the code needed to execute the second bullet of part III
  */
 
-secondbullet("01 March 2020 00:00 GMT-0500");
-secondbullet("30 March 2020 00:00 GMT-0400");
-secondbullet("01 May 2017 00:00 GMT-0400");
-secondbullet("29 January 2021 00:00 GMT-0500");
+//secondbullet("01 March 2020 00:00 GMT-0500");
+//secondbullet("30 March 2020 00:00 GMT-0400");
+//secondbullet("01 May 2017 00:00 GMT-0400");
+//secondbullet("29 January 2021 00:00 GMT-0500");
 
 
 
