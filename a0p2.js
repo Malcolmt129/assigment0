@@ -4,8 +4,9 @@ const ps = require("prompt-sync");
 const prompt = ps()
 
 const key = prompt("Please enter your API key: ");
-
-thirdbullet();      
+//firstbullet()
+//secondbullet(0x192336f603b8e7bef43518108c39b8fb933c8eee60c0e242655138c8206259ef); 
+secondbullet('0xbfe65cc2a2d3b6109ae5665c5d38c74c1035719506c60275390983a38f460b8b');   
 
 /**
  * This is function for the first bullet. 
@@ -49,7 +50,7 @@ async function firstbullet(){
                 }
             }).then(function(response) {
                 usd = response.data['result']['ethusd'];
-                console.log("Current worth of ETH is %s USD", usd);
+                console.log("Current worth of ETH is $%s USD", usd);
                 return usd;
             });
     
@@ -57,7 +58,43 @@ async function firstbullet(){
     console.log("This wallet is worth $%s USD", conversion.toLocaleString()); //toLocaleString, converts the number to US english locale
 }
 
-function secondbullet() {
+async function secondbullet(hash) {
+    var price, flag = await axios({
+        method:'get',
+        url: url,
+        params: {
+            module: 'proxy',
+            action:'eth_getTransactionByHash',
+            txhash:hash,
+            apikey: key
+        }
+    }).then(function(response) {
+        ethInWei = response.data.result['value'];
+        eth = ethInWei / 10**18;
+        return {
+            price: eth,
+            flag: response.data.result['to'] == '0x87a8c74dfa32e09700369584f5dfad1b5b653e2c'
+        } 
+    });
+
+    var USD = await axios({
+        method:'get',
+        url: url,
+        params: {
+            module: 'stats',
+            action: 'ethprice',
+            apikey: key
+        }
+    }).then(function(response) {
+        usd = response.data['result']['ethusd'];
+        return usd;
+    });
+    conversion = USD * price;
+    if (flag){
+        console.log("Marlon Humphrey paid " + price + " ETH for this transcation. That is worth " + conversion.toLocaleString() + " today!");
+    } else {
+        console.log("Marlon Humphrey recieved " + price + " ETH for this transcation. That is worth " + conversion.toLocaleString() + " today!");
+    }
     
 }
 
